@@ -1,0 +1,14 @@
+{
+  "$schema": "https://repomix.com/schemas/latest/schema.json",
+  "output": {
+    "filePath": "project-context.txt",
+    "style": "plain"
+  },
+  "ignore": {
+    "customPatterns": [
+    "**/.next/**",
+      "**/project-context.txt",
+      "**/repomix-output.*"
+    ]
+  }
+}
