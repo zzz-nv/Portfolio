@@ -35,32 +35,48 @@ export function ThemeToggle() {
 
     // Firefox: manual DOM overlay, since View Transitions can't animate
     // clip-path on its pseudo-elements in Firefox.
-    if (isFirefox) {
+        if (isFirefox) {
       const oldBg = getComputedStyle(root).getPropertyValue("--background").trim();
       const oldBgLayer = getComputedStyle(root).getPropertyValue("--bg-layer").trim();
 
+      // Circle div sized to cover the viewport from the click point.
+      // We animate transform: scale (GPU-composited) instead of clip-path,
+      // because Firefox rasterizes clip-path every frame.
       const overlay = document.createElement("div");
-      overlay.id = "theme-overlay";
       overlay.style.position = "fixed";
-      overlay.style.inset = "0";
+      overlay.style.left = `${x - endRadius}px`;
+      overlay.style.top = `${y - endRadius}px`;
+      overlay.style.width = `${endRadius * 2}px`;
+      overlay.style.height = `${endRadius * 2}px`;
+      overlay.style.borderRadius = "50%";
       overlay.style.zIndex = "40";
       overlay.style.pointerEvents = "none";
+      overlay.style.transformOrigin = "center";
       overlay.style.backgroundColor = oldBg;
-      if (oldBgLayer) {
-        overlay.style.backgroundImage = oldBgLayer;
-        overlay.style.backgroundAttachment = "fixed";
+
+      // Stars live on an inner div pinned to the viewport so they align
+      // with the page behind, regardless of the outer circle's position.
+      if (oldBgLayer && oldBgLayer !== "none") {
+        const starLayer = document.createElement("div");
+        starLayer.style.position = "absolute";
+        starLayer.style.left = `${-(x - endRadius)}px`;
+        starLayer.style.top = `${-(y - endRadius)}px`;
+        starLayer.style.width = "100vw";
+        starLayer.style.height = "100vh";
+        starLayer.style.backgroundImage = oldBgLayer;
+        starLayer.style.backgroundAttachment = "fixed";
+        overlay.appendChild(starLayer);
       }
-      overlay.style.clipPath = `circle(${endRadius}px at ${x}px ${y}px)`;
+
       document.body.appendChild(overlay);
 
-      // Swap theme on the page (overlay covers it, so no visible flash)
+      // Swap theme on the real page underneath
       commit();
 
-      // Shrink the overlay's circle toward the click point, revealing new theme
       const anim = overlay.animate(
         [
-          { clipPath: `circle(${endRadius}px at ${x}px ${y}px)` },
-          { clipPath: `circle(0px at ${x}px ${y}px)` },
+          { transform: "scale(1)" },
+          { transform: "scale(0)" },
         ],
         {
           duration: 1200,

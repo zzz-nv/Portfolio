@@ -10,7 +10,7 @@
   --btn: #ededed;
   --btn-fg: #0c0c12;
   --border-hover: rgba(255,255,255,0.4);
-  --bg-layer:
+  --bg-layer: 
     radial-gradient(ellipse 70% 45% at 50% 0%, rgba(79, 140, 255, 0.10), transparent 65%),
     radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,0.5), transparent),
     radial-gradient(1px 1px at 78% 12%, rgba(255,255,255,0.35), transparent),
@@ -55,9 +55,17 @@ html {
 
 body {
   background-color: var(--background);
-  background-image: var(--bg-layer, none);
-  background-attachment: fixed;
   color: var(--foreground);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--bg-layer, none);
+  will-change: transform;
 }
 
 @keyframes letter-in {
