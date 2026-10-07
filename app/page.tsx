@@ -48,7 +48,7 @@ export default function Home() {
         <div className="mt-10 flex gap-3">
           <a
             href="#projects"
-            className="px-6 py-3.5  rounded-none bg-[var(--btn)] text-[var(--btn-fg)] font-medium hover:opacity-90 transition-opacity"
+            className="px-6 py-3.5 rounded-none bg-[var(--btn)] text-[var(--btn-fg)] font-medium hover:opacity-80 transition-opacity"
           >
             Projects
           </a>
@@ -56,7 +56,7 @@ export default function Home() {
             href="https://github.com/zzz-nv"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3.5 rounded-none border border-border font-medium hover:border-[var(--border-hover)] transition-colors"
+            className="px-6 py-3.5 rounded-none border border-border font-medium hover:border-[var(--border-hover)] hover:bg-foreground/[0.03] transition-colors"
           >
             GitHub
           </a>
@@ -69,9 +69,9 @@ export default function Home() {
           {projects.map((p) => (
                         <li
               key={p.name}
-            className="w-[80%] max-w-sm shrink-0 snap-start border border-border rounded-none overflow-hidden xl:w-auto xl:shrink"
+            className="group w-[80%] max-w-sm shrink-0 snap-start border border-border rounded-none overflow-hidden hover:border-[var(--border-hover)] transition-colors xl:w-auto xl:max-w-none"
             >
-              <div className="aspect-video bg-white/5" />
+              <div className="aspect-video bg-white/5 group-hover:bg-white/[0.08] transition-colors" />
                 <div className="p-5 xl:p-6">
                 <div className="text-xl font-medium">{p.name}</div>
                 <div className="mt-3 text-muted leading-relaxed line-clamp-2 min-h-[3rem]">
@@ -82,7 +82,7 @@ export default function Home() {
                     href={p.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 text-sm rounded-none bg-[var(--btn)] text-[var(--btn-fg)] font-medium hover:border-[var(--border-hover)] transition-opacity"
+                    className="px-4 py-2 text-sm rounded-none bg-[var(--btn)] text-[var(--btn-fg)] font-medium hover:opacity-80 transition-opacity"
                   >
                     Live
                   </a>
@@ -90,7 +90,7 @@ export default function Home() {
                     href={p.repo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 text-sm rounded-none border border-border font-medium hover:border-[var(--border-hover)] transition-colors"
+                    className="px-4 py-2 text-sm rounded-none border border-border font-medium hover:border-[var(--border-hover)] hover:bg-foreground/[0.03] transition-colors"
                   >
                     GitHub
                   </a>
