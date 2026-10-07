@@ -36,6 +36,7 @@
   --btn: #000000;
   --btn-fg: #ffffff;
   --border-hover: #ffffff;
+  --bg-layer: none;
 }
 
 @theme inline {
@@ -115,3 +116,5 @@ body {
   transform-origin: center;
   animation: water-fill 0.8s cubic-bezier(0.4, 1, 0.36, 1) forwards;
 }
+
+

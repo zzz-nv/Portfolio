@@ -11,25 +11,13 @@ export function ThemeToggle() {
     setTheme(current === "light" ? "light" : "dark");
   }, []);
 
-  function toggle(e: React.MouseEvent<HTMLButtonElement>) {
+      function toggle(e: React.MouseEvent<HTMLButtonElement>) {
     if (busy.current) return;
     busy.current = true;
-    setTimeout(() => { busy.current = false; }, 1400);
+    setTimeout(() => { busy.current = false; }, 1500);
 
     const root = document.documentElement;
     const next = theme === "light" ? "dark" : "light";
-
-    const apply = () => {
-      root.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
-    };
-
-    if (!document.startViewTransition) {
-      apply();
-      setTheme(next);
-      return;
-    }
-
     const x = e.clientX;
     const y = e.clientY;
     const endRadius = Math.hypot(
@@ -37,9 +25,60 @@ export function ThemeToggle() {
       Math.max(y, innerHeight - y)
     );
 
-    const transition = document.startViewTransition(apply);
-    setTheme(next);
+    const commit = () => {
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+      setTheme(next);
+    };
 
+    const isFirefox = /Firefox|FxiOS/.test(navigator.userAgent);
+
+    // Firefox: manual DOM overlay, since View Transitions can't animate
+    // clip-path on its pseudo-elements in Firefox.
+    if (isFirefox) {
+      const oldBg = getComputedStyle(root).getPropertyValue("--background").trim();
+      const oldBgLayer = getComputedStyle(root).getPropertyValue("--bg-layer").trim();
+
+      const overlay = document.createElement("div");
+      overlay.id = "theme-overlay";
+      overlay.style.position = "fixed";
+      overlay.style.inset = "0";
+      overlay.style.zIndex = "40";
+      overlay.style.pointerEvents = "none";
+      overlay.style.backgroundColor = oldBg;
+      if (oldBgLayer) {
+        overlay.style.backgroundImage = oldBgLayer;
+        overlay.style.backgroundAttachment = "fixed";
+      }
+      overlay.style.clipPath = `circle(${endRadius}px at ${x}px ${y}px)`;
+      document.body.appendChild(overlay);
+
+      // Swap theme on the page (overlay covers it, so no visible flash)
+      commit();
+
+      // Shrink the overlay's circle toward the click point, revealing new theme
+      const anim = overlay.animate(
+        [
+          { clipPath: `circle(${endRadius}px at ${x}px ${y}px)` },
+          { clipPath: `circle(0px at ${x}px ${y}px)` },
+        ],
+        {
+          duration: 1200,
+          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+        }
+      );
+
+      anim.onfinish = () => overlay.remove();
+      return;
+    }
+
+    // Chrome / Edge / Safari: View Transitions
+    if (!document.startViewTransition) {
+      commit();
+      return;
+    }
+
+    const transition = document.startViewTransition(commit);
     transition.ready.then(() => {
       document.documentElement.animate(
         {
