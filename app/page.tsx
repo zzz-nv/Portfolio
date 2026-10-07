@@ -13,10 +13,7 @@ const projects = [
   
   { name: "Project Two", description: "Short one-liner about what it does.",  live: "https://example.com",
     repo: "https://example.com", },
-  { name: "Project Three", description: "Short one-liner about what it does.",  live: "https://example.com",
-    repo: "https://example.com", },
-  { name: "Project Four", description: "Short one-liner about what it does.",  live: "https://example.com",
-    repo: "https://example.com", },
+  
 
 ];
 
@@ -24,8 +21,8 @@ export default function Home() {
   return (
       <main className="mx-auto max-w-[1500px] px-6">
         <ThemeToggle />
-      <section className="min-h-screen flex flex-col items-center justify-center text-center">
-      <h1 className="text-6xl md:text-7xl font-medium tracking-tight">
+      <section className="min-h-[100svh] flex flex-col items-center justify-center text-center">
+      <h1 className="text-5xl sm:text-6xl lg:text-7xl font-medium tracking-tight">
               {"Shahin".split("").map((char, i) => (
                 <span
                   key={i}
@@ -36,7 +33,7 @@ export default function Home() {
                 </span>
               ))}
       </h1>
-          <p className="mt-6 text-xl md:text-2xl text-muted max-w-xl">
+          <p className="mt-6 text-2xl text-muted max-w-xl">
           {"I Build web apps.".split(" ").map((word, i) => (
             <span
               key={i}
@@ -51,7 +48,7 @@ export default function Home() {
         <div className="mt-10 flex gap-3">
           <a
             href="#projects"
-            className="px-6 py-3 rounded-none bg-[var(--btn)] text-[var(--btn-fg)] font-medium hover:opacity-90 transition-opacity"
+            className="px-6 py-3.5  rounded-none bg-[var(--btn)] text-[var(--btn-fg)] font-medium hover:opacity-90 transition-opacity"
           >
             Projects
           </a>
@@ -59,7 +56,7 @@ export default function Home() {
             href="https://github.com/zzz-nv"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3 rounded-none border border-border font-medium hover:border-[var(--border-hover)] transition-colors"
+            className="px-6 py-3.5 rounded-none border border-border font-medium hover:border-[var(--border-hover)] transition-colors"
           >
             GitHub
           </a>
@@ -68,14 +65,14 @@ export default function Home() {
 
         <section id="projects" className="scroll-mt-8 pb-32">
         <h2 className="text-sm uppercase tracking-widest text-muted">Work</h2>
-         <ul className="mt-8 grid gap-8 md:grid-cols-2">
+          <ul className="mt-8 flex gap-6 overflow-x-auto snap-x snap-mandatory pb-2 scroll-px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:grid xl:grid-cols-2 xl:gap-8 xl:overflow-visible xl:pb-0 xl:scroll-px-0">
           {projects.map((p) => (
                         <li
               key={p.name}
-              className="border border-border rounded-none overflow-hidden"
+            className="w-[80%] max-w-sm shrink-0 snap-start border border-border rounded-none overflow-hidden xl:w-auto xl:shrink"
             >
               <div className="aspect-video bg-white/5" />
-              <div className="p-6">
+                <div className="p-5 xl:p-6">
                 <div className="text-xl font-medium">{p.name}</div>
                 <div className="mt-3 text-muted leading-relaxed line-clamp-2 min-h-[3rem]">
                   {p.description}
