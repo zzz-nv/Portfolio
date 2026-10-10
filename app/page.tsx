@@ -1,5 +1,5 @@
 import { ThemeToggle } from "@/components/ThemeToggle";
-
+import { BackToTop } from "@/components/BackToTop";
 
 
 
@@ -8,10 +8,10 @@ const projects = [
     description: "A minimalist social platform built with Next.js and Supabase.", 
     live: "https://project-s-nine-kappa.vercel.app/",
     repo: "https://github.com/zzz-nv/project-s", },
-  
-  
-  
-  { name: "Project Two", description: "Short one-liner about what it does.",  live: "https://example.com",
+
+  { name: "Project Two", 
+    description: "Short one-liner about what it does.",  
+    live: "https://example.com",
     repo: "https://example.com", },
   
 
@@ -19,8 +19,8 @@ const projects = [
 
 export default function Home() {
   return (
-      <main className="mx-auto max-w-[1500px] px-6">
-        <ThemeToggle />
+      <main className="mx-auto max-w-[min(1700px,90vw)] 2xl:max-w-[1700px] px-6 2xl:px-10">       
+      <ThemeToggle />
       <section className="min-h-[100svh] flex flex-col items-center justify-center text-center">
       <h1 className="text-5xl sm:text-6xl lg:text-7xl font-medium tracking-tight">
               {"Shahin".split("").map((char, i) => (
@@ -64,8 +64,8 @@ export default function Home() {
       </section>
 
         <section id="projects" className="scroll-mt-8 pb-32">
-        <h2 className="text-sm uppercase tracking-widest text-muted">Work</h2>
-          <ul className="mt-8 flex gap-6 overflow-x-auto snap-x snap-mandatory pb-2 scroll-px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:grid xl:grid-cols-2 xl:gap-8 xl:overflow-visible xl:pb-0 xl:scroll-px-0">
+        <BackToTop />
+        <h2 className="text-sm uppercase tracking-widest text-muted">Work</h2>        <ul className="mt-8 flex gap-6 overflow-x-auto snap-x snap-mandatory pb-2 scroll-px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden  xl:grid xl:grid-cols-2 xl:gap-8 2xl:gap-12 xl:overflow-visible xl:pb-0 xl:scroll-px-0">
           {projects.map((p) => (
                         <li
               key={p.name}
@@ -109,6 +109,7 @@ export default function Home() {
           </a>
         </p>
       </footer>
+
 
     </main>
   );
