@@ -1,13 +1,15 @@
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { BackToTop } from "@/components/BackToTop";
+import { VideoPreview } from "@/components/VideoPreview";
 
 
 
 const projects = [
-  { name: "Project S", 
+    { name: "Project S", 
     description: "A minimalist social platform built with Next.js and Supabase.", 
     live: "https://project-s-nine-kappa.vercel.app/",
-    repo: "https://github.com/zzz-nv/project-s", },
+    repo: "https://github.com/zzz-nv/project-s",
+    media: "/project-s.mp4" },
 
   { name: "Project Two", 
     description: "Short one-liner about what it does.",  
@@ -65,13 +67,18 @@ export default function Home() {
 
         <section id="projects" className="scroll-mt-8 pb-32">
         <BackToTop />
-        <h2 className="text-sm uppercase tracking-widest text-muted">Work</h2>        <ul className="mt-8 flex gap-6 overflow-x-auto snap-x snap-mandatory pb-2 scroll-px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden  xl:grid xl:grid-cols-2 xl:gap-8 2xl:gap-12 xl:overflow-visible xl:pb-0 xl:scroll-px-0">
+        <h2 className="text-sm uppercase tracking-widest text-muted">Work</h2>        
+        <ul className="mt-8 flex gap-6 overflow-x-auto snap-x snap-mandatory pb-2 scroll-px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden  xl:grid xl:grid-cols-2 xl:gap-8 2xl:gap-12 xl:overflow-visible xl:pb-0 xl:scroll-px-0">
           {projects.map((p) => (
-                        <li
+        <li
               key={p.name}
             className="group w-[80%] max-w-sm shrink-0 snap-start border border-border rounded-none overflow-hidden hover:border-[var(--border-hover)] transition-colors xl:w-auto xl:max-w-none"
             >
-              <div className="aspect-video bg-white/5 group-hover:bg-white/[0.08] transition-colors" />
+              {p.media ? (
+                <VideoPreview src={p.media} poster="/project-s-poster.png" />
+              ) : (
+                <div className="aspect-video bg-white/5 group-hover:bg-white/[0.08] transition-colors" />
+              )}
                 <div className="p-5 xl:p-6">
                 <div className="text-xl font-medium">{p.name}</div>
                 <div className="mt-3 text-muted leading-relaxed line-clamp-2 min-h-[3rem]">
