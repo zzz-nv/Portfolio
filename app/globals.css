@@ -9,7 +9,7 @@
   --accent: #4f8cff;
   --btn: #ededed;
   --btn-fg: #0c0c12;
-  --border-hover: rgba(255,255,255,0.4);
+  --border-hover: rgba(255,255,255,0.5);
   --bg-attachment: fixed;
   --bg-layer: 
     radial-gradient(ellipse 70% 45% at 50% 0%, rgba(79, 140, 255, 0.10), transparent 65%),
@@ -52,6 +52,7 @@
     radial-gradient(ellipse 50% 25% at 85% 55%, rgba(255, 255, 255, 0.2), transparent 70%),
     radial-gradient(ellipse 45% 22% at 30% 80%, rgba(255, 255, 255, 0.18), transparent 70%),
     radial-gradient(ellipse 35% 18% at 70% 95%, rgba(255, 245, 220, 0.25), transparent 70%);
+   
 }
 
 @theme inline {
@@ -139,6 +140,56 @@ body::before {
   transform-box: fill-box;
   transform-origin: center;
   animation: water-fill 0.8s cubic-bezier(0.4, 1, 0.36, 1) forwards;
+}
+
+
+
+
+
+
+/*What i build section*/ 
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.5em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-line {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.reveal-init .reveal-item {
+  opacity: 0;
+}
+.reveal-init .reveal-line-item {
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
+.reveal-init.revealed .reveal-item {
+  animation: reveal-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.reveal-init.revealed .reveal-line-item {
+  animation: reveal-line 1.0s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-init .reveal-item,
+  .reveal-init .reveal-line-item {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
 }
 
 

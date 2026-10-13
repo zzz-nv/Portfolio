@@ -1,20 +1,30 @@
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { BackToTop } from "@/components/BackToTop";
 import { VideoPreview } from "@/components/VideoPreview";
+import { Capabilities } from "@/components/Capabilities";
 
 
+type Project = {
+  name: string;
+  description: string;
+  live: string;
+  repo: string;
+  media?: string;
+  image?: string;
+};
 
-const projects = [
+const projects: Project[] = [
     { name: "Project S", 
     description: "A minimalist social platform built with Next.js and Supabase.", 
     live: "https://project-s-nine-kappa.vercel.app/",
     repo: "https://github.com/zzz-nv/project-s",
     media: "/project-s.mp4" },
 
-  { name: "Project Two", 
-    description: "Short one-liner about what it does.",  
-    live: "https://example.com",
-    repo: "https://example.com", },
+    { name: "Portfolio",
+    description: "This site. Next.js, hand-written CSS, and a custom theme system with a cross-browser animation fallback.",
+    live: "https://shahin-portfolio-dev.vercel.app",
+    repo: "https://github.com/zzz-nv/portfolio",
+    image: "/portfolio-preview.png" },
   
 
 ];
@@ -64,7 +74,7 @@ export default function Home() {
           </a>
         </div>
       </section>
-
+        <Capabilities />
         <section id="projects" className="scroll-mt-8 pb-32">
         <BackToTop />
         <h2 className="text-sm uppercase tracking-widest text-muted">Work</h2>        
@@ -76,6 +86,12 @@ export default function Home() {
             >
               {p.media ? (
                 <VideoPreview src={p.media} poster="/project-s-poster.png" />
+              ) : p.image ? (
+                  <img
+                  src={p.image}
+                  alt={p.name}
+                  className="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
               ) : (
                 <div className="aspect-video bg-white/5 group-hover:bg-white/[0.08] transition-colors" />
               )}
