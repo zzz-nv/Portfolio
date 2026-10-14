@@ -4,11 +4,19 @@ Personal portfolio site. Built to feel like its own thing rather than a template
 
 **[Live site](https://shahin-portfolio-dev.vercel.app)**
 
+---
+
 ## Screenshots
 
-| Dark | Light |
-|---|---|
-| ![Dark mode](docs/readme-dark.png) | ![Light mode](docs/readme-light.png) |
+### Dark
+
+![Dark mode](docs/readme-dark.png)
+
+### Light
+
+![Light mode](docs/readme-light.png)
+
+---
 
 ## What's in it
 
@@ -18,12 +26,16 @@ Personal portfolio site. Built to feel like its own thing rather than a template
 - Hover-to-play video preview on project cards
 - Hand-written CSS with a semantic color token system
 
+---
+
 ## Stack
 
 - Next.js 16 (App Router)
 - TypeScript
 - Tailwind CSS v4
 - No UI libraries, no animation libraries
+
+---
 
 ## Run locally
 
